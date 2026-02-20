@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Learner Enrollment Form</title>
+<title>Senior High School - Enrollment Form</title>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
 <style>
 /* Base Styles (keep your existing ones) */
@@ -711,6 +711,18 @@ async function goToSuccess() {
       headers:{"Content-Type":"application/json"},
       body:JSON.stringify(studentData)
     });
+    
+    if (allStudents) {
+  const duplicate = Object.values(allStudents).some(student =>
+    student["2-Personal-Information"]["1-PSA"] === fields.psa.value ||
+    student["2-Personal-Information"]["2-LRN"] === fields.lrn.value
+  );
+
+  if (duplicate) {
+    alert("A student with the same PSA or LRN already exists!");
+    return;
+  }
+}
 
     alert(`Student saved successfully! Student ID: ${studentID}`);
     window.location.href="successful.html";
@@ -725,3 +737,4 @@ async function goToSuccess() {
 </body>
 
 </html>
+
