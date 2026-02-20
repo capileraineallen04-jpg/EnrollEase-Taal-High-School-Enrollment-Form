@@ -536,15 +536,17 @@ async function goToSuccess() {
     const countRes = await fetch(`https://enrollease---enrollment-form-default-rtdb.asia-southeast1.firebasedatabase.app/${dataset}.json`);
     const allStudents = await countRes.json();
 
-    if (allStudents) {
-      const duplicate = Object.values(allStudents).some(student =>
-        student["3-Personal-Information"]["1-PSA"] === fields.psa.value
-      );
-      if (duplicate) {
-        alert("A student with the same PSA already exists!");
-        return;
-      }
-    }
+if (allStudents) {
+  const duplicate = Object.values(allStudents).some(student =>
+    student["2-Personal-Information"]["1-PSA"] === fields.psa.value ||
+    student["2-Personal-Information"]["2-LRN"] === fields.lrn.value
+  );
+
+  if (duplicate) {
+    alert("A student with the same PSA or LRN already exists!");
+    return;
+  }
+}
 
     // =============================
     // RANDOM STUDENT ID
@@ -640,4 +642,5 @@ async function goToSuccess() {
 
 
 </body>
+
 </html>
